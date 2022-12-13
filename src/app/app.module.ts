@@ -73,6 +73,7 @@ import { DeleteReclamationComponent } from './reclamation/delete-reclamation/del
 import { EditReclamationComponent } from './reclamation/edit-reclamation/edit-reclamation.component';
 import { TableReclamationComponent } from './reclamation/table-reclamation/table-reclamation.component';
 import { DatePipe } from '@angular/common';
+import { AzizComponent } from './aziz/aziz.component';
 
 
 @NgModule({
@@ -121,7 +122,8 @@ import { DatePipe } from '@angular/common';
     DeleteReclamationComponent,
     EditReclamationComponent,
     TableReclamationComponent,
-    FormcalculComponent
+    FormcalculComponent,
+    AzizComponent
 
   ],
   imports: [
