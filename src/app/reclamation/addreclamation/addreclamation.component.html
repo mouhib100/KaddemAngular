@@ -1,0 +1,103 @@
+<form #f="ngForm">
+  <ng-container>
+    <mat-accordion class="example-headers-align">
+      <mat-expansion-panel ngModelGroup="step0" #step0="ngModelGroup" [expanded]="step === 0" (opened)="setStep(0)"
+        hideToggle>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            date Reclamation :
+          </mat-panel-title>
+          <mat-panel-description>
+            <mat-icon>account_circle</mat-icon>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <mat-form-field appearance="fill">
+          <mat-label>date</mat-label>
+          <input matInput ngModel [(ngModel)]="myDate" required name="date" #date="ngModel" [matDatepicker]="picker">
+          <mat-hint>MM/DD/YYYY</mat-hint>
+          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <div id="wrapper">
+          <div class="alert alert-warning col-md-3 " id="left" role="alert" *ngIf="date.touched && date.invalid">
+            Veuillez inserer un date </div>
+        </div>
+
+
+
+        <mat-action-row>
+          <button mat-button color="primary" [disabled]="step0.invalid" (click)="nextStep()">Next</button>
+        </mat-action-row>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel ngModelGroup="step1" #step1="ngModelGroup" [expanded]="step === 1" (opened)="setStep(1)"
+        hideToggle>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Title
+          </mat-panel-title>
+          <mat-panel-description>
+
+            <mat-icon>map</mat-icon>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <mat-form-field appearance="fill">
+          <mat-label>title</mat-label>
+          <input matInput ngModel required minlength="3" name="title" #title="ngModel">
+        </mat-form-field>
+
+        <div class="alert alert-warning col-md-4 " role="alert" *ngIf="title.untouched">Veuillez inserer une title
+        </div>
+
+
+        <mat-action-row>
+          <button mat-button color="warn" (click)="prevStep()">Previous</button>
+          <button mat-button color="primary" [disabled]="step1.invalid" (click)="nextStep()">Next</button>
+        </mat-action-row>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel ngModelGroup="step2" #step2="ngModelGroup" [expanded]="step === 2" (opened)="setStep(2)"
+        hideToggle><mat-expansion-panel-header>
+
+          <mat-panel-title>
+            Message & processed
+          </mat-panel-title>
+          <mat-panel-description>
+            Ecrire le Message et choisir l'etat de processed
+            <mat-icon>date_range</mat-icon>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <mat-form-field appearance="fill">
+          <mat-label>message</mat-label>
+          <input matInput ngModel required minlength="3" name="message" #message="ngModel">
+        </mat-form-field>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-form-field appearance="fill">
+          <mat-label>processed</mat-label>
+          <mat-select ngModel required name="processed" #processed="ngModel">
+            <mat-option value="true">True</mat-option>
+            <mat-option value="false">False</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <div id="wrapper1">
+          <div class="alert alert-warning col-md-3 " id="left1" role="alert" *ngIf="message.touched && message.invalid">
+            Veuillez inserer un message </div>
+          <div class="alert alert-warning col-md-4 " id="right1" role="alert"
+            *ngIf="processed.touched && processed.invalid">Veuillez inserer un processed </div>
+        </div>
+
+        <mat-action-row>
+          <button mat-button color="warn" (click)="prevStep()">Previous</button>
+          <button mat-button color="primary" [disabled]="step2.invalid" (click)="nextStep()">End</button>
+        </mat-action-row>
+      </mat-expansion-panel>
+      <mat-action-row>
+        <button class="addbutton" mat-button color="primary" [disabled]="f.invalid"
+          (click)="addReclamation(step0.value,step1.value,step2.value)">Add</button>
+      </mat-action-row>
+    </mat-accordion>
+  </ng-container>
+</form>

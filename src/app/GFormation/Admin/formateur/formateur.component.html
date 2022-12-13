@@ -1,0 +1,170 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" style="color:white;">Former Manager</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+<span class="navbar-toggler-icon"></span>
+</button>
+    <div class="collapse navbar-collapse" id="navbarColor02">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" (click)="onOpenModal(null, 'add')">Add Former <span class="sr-only">(current)</span></a>
+            </li>
+
+
+
+
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <input type="search" (ngModelChange)="searchFormateur(key.value)" #key="ngModel" ngModel name="key" id="searchName" class="form-control mr-sm-2" placeholder="Search Former..." required>
+        </form>
+    </div>
+</nav>
+<div class="container" id="main-container">
+    <div class="row">
+        <div *ngFor="let f of Formateur" class="col-md-6 col-xl-3">
+            <div class="card m-b-30">
+                <div class="card-body row">
+                    <div class="col-6">
+                        <a href=""><img src="{{f?.imageUrl}}" alt="" class="img-fluid rounded-circle w-60"></a>
+                    </div>
+                    <div class="col-6 card-title align-self-center mb-0">
+                        <h5>{{f?.nomPrenom}}</h5>
+                        <p class="m-0">{{f?.matiere}}</p>
+                    </div>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><i class="fa fa-envelope float-right"></i>{{f?.email}}</li>
+                    <li class="list-group-item"><i class="fa fa-phone float-right"></i>Phone : {{f?.phone}}</li>
+                </ul>
+                <div class="card-body">
+                    <div class="float-right btn-group btn-group-sm">
+                        <a (click)="onOpenModal(f, 'edit')" class="btn btn-primary tooltips" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i> </a>
+                        <a (click)="onOpenModal(f, 'delete')" class="btn btn-secondary tooltips" data-placement="top" data-original-title="Delete"><i class="fa fa-times"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Formateur Modal -->
+    <div class="modal fade" id="addFormateurModal" tabindex="-1" role="dialog" aria-labelledby="addFormateurModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addFormateurModalLabel">Add Former</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+      </button>
+                </div>
+                <div class="modal-body">
+                    <form #addForm="ngForm" (ngSubmit)="onAddFormateur(addForm)">
+                        <div class="form-group">
+                            <label for="nom">First and last name</label>
+                            <input type="text" ngModel name="nomPrenom" class="form-control" id="nomPrenom" placeholder="Write (First,Last) Name.." required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" ngModel name="email" class="form-control" id="email" placeholder="Write Email.." required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="text" ngModel name="phone" class="form-control" id="phone" placeholder="Write Phone Number.." required>
+                        </div>
+                        <div class="form-group">
+                            <label for="matiere">Subject</label>
+                            <input type="text" ngModel name="matiere" class="form-control" id="matiere" placeholder="Write Subject (Matiere).." required>
+                        </div>
+                        <div class="form-group">
+                            <label for="imageUrl">Image URL</label>
+                            <input type="text" ngModel name="imageUrl" class="form-control" id="imageUrl" placeholder="Write Image URL.." required>
+                        </div>
+
+
+
+                        <div class="modal-footer">
+                            <button type="button" id="add-Formateur-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary">Add Former</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Modal -->
+    <div class="modal fade" id="updateFormateurModal" tabindex="-1" role="dialog" aria-labelledby="FormateurEditModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="updateFormateurModalLabel">Edit Former {{editFormateur?.nomPrenom}}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+       <span aria-hidden="true">&times;</span>
+       </button>
+                </div>
+                <div class="modal-body">
+                    <form #editForm="ngForm">
+                        <div class="form-group">
+                            <label for="nomPrenom">First and last name</label>
+                            <input type="text" ngModel="{{editFormateur?.nomPrenom}}" name="nomPrenom" class="form-control" id="nomPrenom" aria-describedby="emailHelp" placeholder="Edit (First,Last) Name..">
+                        </div>
+                        <input type="hidden" ngModel="{{editFormateur?.idFormateur}}" name="idFormateur" class="form-control" id="idFormateur">
+                        <input type="hidden" ngModel="{{editFormateur?.date}}" name="date" class="form-control" id="date">
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" ngModel="{{editFormateur?.email}}" name="email" class="form-control" id="email" placeholder="Edit Email..">
+
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="text" ngModel="{{editFormateur?.phone}}" name="phone" class="form-control" id="phone" name="phone" placeholder="Edit Phone Number..">
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Subject</label>
+                            <input type="text" ngModel="{{editFormateur?.matiere}}" name="matiere" class="form-control" id="matiere" placeholder="Edit Subject (Matiere)..">
+
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone">Image URL</label>
+                            <input type="text" ngModel="{{editFormateur?.imageUrl}}" name="imageUrl" class="form-control" id="imageUrl" placeholder="Edit Image URL..">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" id="" data-dismiss="modal" class="btn btn-secondary">Close</button>
+                            <button (click)="onUpdateFormateur(editForm.value)" data-dismiss="modal" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Modal -->
+    <div class="modal fade" id="deleteFormateurModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModelLabel">Delete Former</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+       <span aria-hidden="true">&times;</span>
+       </button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to delete Former {{deleteFormateur?.nomPrenom}}?</p>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                        <button (click)="onDeleteFormateur(deleteFormateur?.idFormateur)" class="btn btn-danger" data-dismiss="modal">Yes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Notification for no Formateur -->
+<div *ngIf="Formateur?.length == 0" class="col-lg-12 col-md-12 col-xl-12">
+    <div class="alert alert-info" role="alert">
+        <h4 class="alert-heading">NO Formers !</h4>
+        <p>No Formers were found.</p>
+    </div>
+</div>

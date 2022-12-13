@@ -1,0 +1,35 @@
+<form [formGroup]="editForm">
+  <mat-form-field appearance="fill">
+    <mat-label>ID</mat-label>
+    <input matInput formControlName="idReclamation">
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Date</mat-label>
+    <input matInput formControlName="date">
+  </mat-form-field>
+  <div class="alert alert-warning col-md-17 "  role="alert" *ngIf="editForm.controls['date'].touched && editForm.controls['date'].invalid">Veuillez inserer un date</div>
+
+
+  <mat-form-field appearance="fill">
+    <mat-label>title</mat-label>
+    <input matInput formControlName="title">
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>message</mat-label>
+    <input matInput formControlName="message">
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>processed</mat-label>
+    <mat-select formControlName="processed">
+      <mat-option value="true">True</mat-option>
+      <mat-option value="false">False</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+
+  <div mat-dialog-actions [align]='"end"'>
+    <button mat-button color="primary" (click)="EditReclamation()">Edit</button>
+  </div>
+</form>
+

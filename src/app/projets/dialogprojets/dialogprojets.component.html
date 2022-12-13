@@ -1,0 +1,64 @@
+<h1 mat-dialog-title>{{ajoutmodif}}un projet</h1>
+<div mat-dialog-content>
+
+    <p [ngClass]="ajtprclass"> {{ajoutmodif}} les cordonnées de ce projet </p>
+    <form style="width: 400px;" [formGroup]="projectForm">
+
+        <mat-form-field appearance="fill">
+            <mat-label>Nom enseignant encadrant</mat-label>
+            <input formControlName="nomEnseignant" matInput>
+        </mat-form-field>
+        <span class="text-danger" *ngIf="projectForm.controls['nomEnseignant'].dirty && projectForm.hasError('minlength', 'nomEnseignant') "> Saisir aux moins 3 caractères </span>
+        <br>
+        <mat-form-field appearance="fill">
+            <mat-label>Nom du projet</mat-label>
+            <input formControlName="nomProjet" matInput>
+        </mat-form-field>
+        <span class="text-danger" *ngIf="projectForm.controls['nomProjet'].dirty && projectForm.hasError('maxlength', 'nomProjet') "> Maximum 20 caractères  </span>
+        <br>
+        <mat-form-field appearance="fill">
+            <mat-label>Module</mat-label>
+            <mat-select formControlName="module">
+                <mat-option value="RO">RO</mat-option>
+                <mat-option value="DevFront">DevFront</mat-option>
+                <mat-option value="DevBack">DevBack</mat-option>
+                <mat-option value="ArchNT">ArchNT</mat-option>
+                <mat-option value="SAR">SAR</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <br>
+
+        <div>
+            <mat-form-field appearance="fill">
+                <mat-label>Date Debut Projet</mat-label>
+                <input formControlName="dateDebutP" matInput [matDatepicker]="picker">
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Date Fin Projet</mat-label>
+                <input formControlName="dateFinP" matInput [matDatepicker]="pickerr">
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matIconSuffix [for]="pickerr"></mat-datepicker-toggle>
+                <mat-datepicker #pickerr></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <br>
+
+
+        <mat-radio-group formControlName="selection" aria-label="Select an option">
+            <mat-radio-button value=true>Selectionné</mat-radio-button>
+            <mat-radio-button value=false>Pas encore</mat-radio-button>
+        </mat-radio-group>
+
+    </form>
+    <p [ngStyle]="{'color' : style1 , 'font-family' : style2 , 'display' : style3 }">n'oublier pas d'enregistrer vos modifications</p>
+
+    <div mat-dialog-action [align]="'end'">
+        <button style="margin: right 8px;" mat-raised-button color="warn" mat-dialog-close>Close</button>
+        <button style="margin: right 8px;" mat-raised-button color="primary" (click)="addproject()">{{actionbutton}}</button>
+
+    </div>
+</div>

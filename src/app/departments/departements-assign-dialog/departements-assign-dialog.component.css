@@ -1,0 +1,19 @@
+mat-form-field {
+  width: 100%;
+}
+
+.Add_Button {
+  background-color: rgb(62, 104, 255);
+  color: white;
+}
+
+.example-section {
+  margin: 12px 0;
+}
+
+.universiteChoices {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+}

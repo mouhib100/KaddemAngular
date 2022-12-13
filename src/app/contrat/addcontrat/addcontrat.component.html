@@ -1,0 +1,117 @@
+<!--<h1 mat-dialog-title>Add universite</h1>
+<div mat-dialog-content>
+  <form [formGroup]= "universiteForm">
+    <mat-form-field appearance="outline">
+      <mat-label>universite Name</mat-label>
+      <input formControlName="universiteName" matInput placeholder="Placeholder">
+    </mat-form-field>
+
+  </form>
+  <div mat-dialog-actions [align]="'end'">
+    <button mat-raised-button color="warn" mat-dialog-close>Close</button>
+    <button mat-raised-button color="primary">add</button>
+  </div>
+</div>-->
+<<form #f="ngForm">
+  <ng-container>
+    <mat-accordion class="example-headers-align">
+      <mat-expansion-panel ngModelGroup="step0" #step0="ngModelGroup" [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
+        <mat-expansion-panel-header >
+          <mat-panel-title>
+            Dates :
+          </mat-panel-title>
+          <mat-panel-description>
+            <mat-icon>account_circle</mat-icon>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <mat-form-field appearance="fill">
+          <mat-label>date debut</mat-label>
+          <input matInput ngModel  [(ngModel)]="myDate" required name="dateDebutC" #dateDebutC="ngModel" [matDatepicker]="picker">
+          <mat-hint>MM/DD/YYYY</mat-hint>
+          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>date fin</mat-label>
+          <input matInput ngModel  [(ngModel)]="myDate1" required name="dateFinC" #dateFinC="ngModel" [matDatepicker]="picker1">          <mat-hint>MM/DD/YYYY</mat-hint>
+          <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+          <mat-datepicker #picker1></mat-datepicker>
+        </mat-form-field>
+
+        <div id="wrapper">
+          <div class="alert alert-warning col-md-3 " id= "left" role="alert" *ngIf="dateDebutC.touched && dateDebutC.invalid">Veuillez inserer un nom </div>
+          <div class="alert alert-warning col-md-4 " id= "right" role="alert" *ngIf="dateFinC.touched && dateFinC.invalid">Veuillez inserer un prenom </div>
+        </div>
+
+        <mat-action-row>
+          <button mat-button color="primary" [disabled]="step0.invalid" (click)="nextStep()">Next</button>
+        </mat-action-row>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel ngModelGroup="step1" #step1="ngModelGroup" [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Specialite
+          </mat-panel-title>
+          <mat-panel-description>
+            <mat-icon>map</mat-icon>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Votre Specialité</mat-label>
+          <mat-select ngModel required name="specialite" #specialite="ngModel">
+            <mat-option value="IA">IA</mat-option>
+            <mat-option value="Reseaux">Reseaux</mat-option>
+            <mat-option value="Cloud">Cloud</mat-option>
+            <mat-option value="Web">Web</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <div class="alert alert-warning col-md-4 " role="alert" *ngIf="specialite.untouched">Veuillez inserer une specialite </div>
+        <mat-action-row>
+          <button mat-button color="warn" (click)="prevStep()">Previous</button>
+          <button mat-button color="primary" [disabled]="step1.invalid" (click)="nextStep()">Next</button>
+        </mat-action-row>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel ngModelGroup="step2" #step2="ngModelGroup" [expanded]="step === 2" (opened)="setStep(2)" hideToggle><mat-expansion-panel-header>
+
+        <mat-panel-title>
+          Archive et Montant
+        </mat-panel-title>
+        <mat-panel-description>
+          Choisir l'etat archive et le montant
+          <mat-icon>date_range</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+        <mat-form-field appearance="fill">
+          <mat-label>archive</mat-label>
+          <mat-select ngModel required name="archive" #archive="ngModel">
+            <mat-option value="true">True</mat-option>
+            <mat-option value="false">False</mat-option>
+          </mat-select>
+
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Montant en Dollar</mat-label>
+          <input matInput ngModel required name="montantc" #MontantC="ngModel">
+        </mat-form-field>
+        <div id="wrapper1">
+          <div class="alert alert-warning col-md-3 " id= "left1" role="alert" *ngIf="archive.touched && archive.invalid">Veuillez inserer un archive </div>
+          <div class="alert alert-warning col-md-4 " id= "right1" role="alert" *ngIf="MontantC.touched && MontantC.invalid">Veuillez inserer un montant </div>
+        </div>
+
+        <mat-action-row>
+          <button mat-button color="warn" (click)="prevStep()">Previous</button>
+          <button mat-button color="primary" [disabled]="step2.invalid" (click)="nextStep()">End</button>
+        </mat-action-row>
+      </mat-expansion-panel>
+      <mat-action-row>
+        <button class="addbutton" mat-button color="primary" [disabled]="f.invalid" (click)="addContrat(step0.value,step1.value,step2.value)" >Add</button>
+      </mat-action-row>
+    </mat-accordion>
+  </ng-container>
+</form>

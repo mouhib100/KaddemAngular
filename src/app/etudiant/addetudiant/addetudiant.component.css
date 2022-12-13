@@ -1,0 +1,20 @@
+.example-headers-align .mat-expansion-panel-header-description {
+  justify-content: space-between;
+  align-items: center;
+}
+.addbutton {
+  font-size: 20px;
+  margin-top: 20px;
+}
+
+#wrapper {
+  display: flex;
+}
+
+#right {
+  margin-left: 20px;
+}
+
+mat-form-field {
+  width: 100%;
+}

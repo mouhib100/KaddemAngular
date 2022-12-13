@@ -1,0 +1,133 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" style="color:white;">Support Manager</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+<span class="navbar-toggler-icon"></span>
+</button>
+    <div class="collapse navbar-collapse" id="navbarColor02">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" (click)="onOpenModal(null, 'add')">Add Support <span class="sr-only">(current)</span></a>
+            </li>
+
+
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+
+
+            <button (click)="reload()">Refrech</button>
+
+        </form>
+    </div>
+</nav>
+<div class="container" id="main-container">
+
+
+    <!-- Add Support Modal -->
+    <div class="modal fade" id="addSupportModal" tabindex="-1" role="dialog" aria-labelledby="addSupportModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addSupportModalLabel">Add Support N°{{id}}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+                </div>
+                <div class="modal-body">
+                    <form #addForm="ngForm" (ngSubmit)="onAddSupport(addForm)">
+
+                        <input type="hidden" ngModel="{{id}}" name="idMC" class="form-control" id="idMC" readonly placeholder="{{id}}" required>
+
+
+                        <div class="form-group">
+                            <label for="titre">Title</label>
+                            <input type="text" ngModel name="titre" class="form-control" id="titre" placeholder="Write Title.." required>
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <input type="text" ngModel name="description" class="form-control" id="description" placeholder="Write Description.." required>
+                        </div>
+                        <div class="form-group">
+                            <label for="text">Content</label>
+                            <textarea rows="8" cols="20" type="text" ngModel name="text" class="form-control" id="text" placeholder="Write Content.." required></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="type">Type Support </label>
+                            <input type="text" ngModel name="type" class="form-control" id="type" placeholder="Write Type Support(Exam,Revision..).." required>
+                        </div>
+
+
+
+
+                        <div class="modal-footer">
+                            <button type="button" id="add-Support-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary">Add Support</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Delete Modal -->
+    <div class="modal fade" id="deleteSupportModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModelLabel">Delete Support</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+ <span aria-hidden="true">&times;</span>
+ </button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to delete Support {{deleteSupport?.matiere}?</p>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                        <button (click)="onDeleteSupport(deleteSupport?.idSupport)" class="btn btn-danger" data-dismiss="modal">Yes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Notification for no Support -->
+<div *ngIf="Support?.length == 0" class="col-lg-12 col-md-12 col-xl-12">
+    <div class="alert alert-info" role="alert">
+        <h4 class="alert-heading">NO Supports !</h4>
+        <p>No Supports were found.</p>
+    </div>
+</div>
+
+
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>N°</th>
+            <th>Title</th>
+            <th> Description </th>
+            <th> Date </th>
+            <th> Type </th>
+            <th> Actions </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let s of Cours">
+
+            <td *ngIf="s.idMC==id"> {{ s.idSupport }} </td>
+            <td *ngIf="s.idMC==id"> {{ s.titre }} </td>
+            <td *ngIf="s.idMC==id"> {{ s.description}} </td>
+            <td *ngIf="s.idMC==id"> {{ s.date}} </td>
+            <td *ngIf="s.idMC==id"> {{ s.type}} </td>
+            <td *ngIf="s.idMC==id">
+                <button (click)="updateCours(s.idSupport)" class="btn btn-info"> Update</button>
+                <button (click)="deleteCours(s.idSupport)" class="btn btn-danger" style="margin-left: 10px"> Delete</button>
+                <button (click)="CoursDetails(s.idSupport)" class="btn btn-info" style="margin-left: 10px"> View</button>
+            </td>
+
+        </tr>
+    </tbody>
+</table>

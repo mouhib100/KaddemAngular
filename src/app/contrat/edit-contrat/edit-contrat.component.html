@@ -1,0 +1,49 @@
+<form [formGroup]="editForm">
+  <mat-form-field appearance="fill">
+    <mat-label>ID</mat-label>
+    <input matInput formControlName="idContrat">
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>DateDebut</mat-label>
+    <input matInput formControlName="dateDebutC">
+  </mat-form-field>
+  <div class="alert alert-warning col-md-17 "  role="alert" *ngIf="editForm.controls['dateDebutC'].touched && editForm.controls['dateDebutC'].invalid">Veuillez inserer un datedebut </div>
+
+  <mat-form-field appearance="fill">
+    <mat-label>DateFin</mat-label>
+    <input matInput formControlName="dateFinC">
+  </mat-form-field>
+  <div class="alert alert-warning col-md-17 "  role="alert" *ngIf="editForm.controls['dateFinC'].touched && editForm.controls['dateFinC'].invalid">Veuillez inserer un datefin </div>
+
+
+  <mat-form-field appearance="fill">
+    <mat-label>Specialite</mat-label>
+    <mat-select formControlName="specialite">
+      <mat-option value="IA">IA</mat-option>
+      <mat-option value="Reseaux">Reseaux</mat-option>
+      <mat-option value="Cloud">Cloud</mat-option>
+      <mat-option value="Web">Web</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>archive</mat-label>
+    <mat-select formControlName="archive">
+      <mat-option value="true">True</mat-option>
+      <mat-option value="false">False</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>montantc</mat-label>
+    <input matInput formControlName="MontantC">
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>etudiant</mat-label>
+    <input matInput>
+  </mat-form-field>
+  <div mat-dialog-actions [align]='"end"'>
+    <button mat-button color="primary" (click)="EditContrat()">Edit</button>
+  </div>
+</form>
+

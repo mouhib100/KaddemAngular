@@ -1,0 +1,84 @@
+<div class="grid-container">
+  <h1 class="mat-h1">Contrats</h1>
+
+  <div class="SearchButton">
+    <mat-form-field appearance="outline" class="DepartmentSearchInput">
+      <mat-label>Search for Contracts</mat-label>
+      <input matInput (keyup)="applyFilter($event)" [(ngModel)]="search" placeholder="Search" #input>
+    </mat-form-field>
+    <button mat-raised-button class="demo-button" (click)="openAddDialog()">
+      <mat-icon>add</mat-icon>
+      Add Contract
+    </button>
+  </div>
+
+  <div class="mat-elevation-z2">
+    <table mat-table [dataSource]="dataSource" matSort>
+
+      <!-- ID Column -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> id </th>
+        <td mat-cell *matCellDef="let row"> {{row.idContrat}} </td>
+      </ng-container>
+
+      <!-- universite Column -->
+      <ng-container matColumnDef="datedebut">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> datedebut </th>
+        <td mat-cell *matCellDef="let row"> {{row.dateDebutC| date}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="datefin">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> datefin </th>
+        <td mat-cell *matCellDef="let row"> {{row.dateFinC |date}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="specialite">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> specialite </th>
+        <td mat-cell
+          [ngClass]="{
+    'text-danger':row.specialite === 'IA','text-primary':row.specialite === 'Reseaux','text-success':row.specialite === 'Cloud','text-info':row.specialite === 'Web'}"
+          *matCellDef="let row"> {{row.specialite}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="archive">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> archive </th>
+        <td mat-cell [ngStyle]="{'color':getColor(row.archive)}" *matCellDef="let row"> {{row.archive}}</td>
+
+      </ng-container>
+
+      <ng-container matColumnDef="montantc">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> montantc </th>
+        <td mat-cell *matCellDef="let row"> {{row.MontantC | currency}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="Etudiant">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Etudiant </th> /// a fixer
+        <td mat-cell *matCellDef="let row"> {{row.EtudiantSet}}</td>
+      </ng-container>
+
+      <!-- action -->
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
+        <td mat-cell *matCellDef="let row">
+          <button mat-icon-button color="primary" (click)=openEditDialog(row)>
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)=openDeleteDialog(row.idContrat)>
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <!-- Row shown when there is no matching data. -->
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+      </tr>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <mat-paginator [pageSize]="pageSize" showFirstLastButtons aria-label="Select page"></mat-paginator>
+  </div>
+  <mat-divider></mat-divider>
+  <app-updatenotificatiob (RefreshNotif)="showRefreshMsg($event)"></app-updatenotificatiob>
+
+</div>

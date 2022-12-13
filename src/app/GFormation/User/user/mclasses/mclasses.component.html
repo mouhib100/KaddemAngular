@@ -1,0 +1,132 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" style="color:white;">Class Manager</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+<span class="navbar-toggler-icon"></span>
+</button>
+    <div class="collapse navbar-collapse" id="navbarColor02">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+            </li>
+
+
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <input type="search" (ngModelChange)="searchMClasse(key.value)" #key="ngModel" ngModel name="key" id="searchName" class="form-control mr-sm-2" placeholder="Search MClasse..." required>
+        </form>
+    </div>
+</nav>
+<div class="container" id="main-container">
+    <div class="row">
+        <div *ngFor="let f of MClasses" class="col-md-6 col-xl-3">
+            <div class="card m-b-30">
+                <div class="card-body row">
+                    <div class="col-6">
+                        <a href=""><img src="{{f?.imageUrl}}" alt="" class="img-fluid rounded-circle w-60"></a>
+                    </div>
+                    <div class="col-6 card-title align-self-center mb-0">
+                        <h5>{{f?.matiere}}</h5>
+                        <p class="m-0">{{f?.classe}}</p>
+
+                    </div>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><i class="fa fa-envelope float-right"></i>{{f?.description}}</li>
+                    <li class="list-group-item"><i class="fa fa-phone float-right"></i>{{f?.emailF}}</li>
+                </ul>
+                <div class="card-body">
+                    <div class="float-right btn-group btn-group-sm">
+                    </div>
+
+
+                    <div>
+
+                        <svg (click)="Cour(f.idMClasse)" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person-workspace" viewBox="0 0 16 16">
+
+                    <path d="M4 16s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H4Zm4-5.95a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z" />
+                  <path d="M2 1a2 2 0 0 0-2 2v9.5A1.5 1.5 0 0 0 1.5 14h.653a5.373 5.373 0 0 1 1.066-2H1V3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v9h-2.219c.554.654.89 1.373 1.066 2h.653a1.5 1.5 0 0 0 1.5-1.5V3a2 2 0 0 0-2-2H2Z" />
+
+
+                </svg>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add MClasse Modal -->
+    <div class="modal fade" id="addMClasseModal" tabindex="-1" role="dialog" aria-labelledby="addMClasseModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addMClasseModalLabel">Add Class</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+                </div>
+                <div class="modal-body">
+                    <form #addForm="ngForm" (ngSubmit)="onAddMClasse(addForm)">
+                        <div class="form-group">
+                            <label for="classe">Class Name</label>
+                            <input type="text" ngModel name="classe" class="form-control" id="classe" placeholder="Write Class Name.." required>
+                        </div>
+                        <div class="form-group">
+                            <label for="emailF">Former E-Mail</label>
+                            <input type="email" ngModel name="emailF" class="form-control" id="emailF" placeholder="Write Your Email.." required>
+                        </div>
+                        <div class="form-group">
+                            <label for="matiere">Subject</label>
+                            <input type="text" ngModel name="matiere" class="form-control" id="matiere" placeholder="Write Subject(Matiere).." required>
+                        </div>
+                        <div class="form-group">
+                            <label for="matiere">Subject Description</label>
+                            <input type="text" ngModel name="description" class="form-control" id="description" placeholder="Write Subject Description.." required>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="imageUrl">Image URL classroom </label>
+                            <input type="text" ngModel name="imageUrl" class="form-control" id="imageUrl" placeholder="Write Image URL.." required>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" id="add-MClasse-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary">Add Class</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Delete Modal -->
+    <div class="modal fade" id="deleteMClasseModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModelLabel">Delete MClasse</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to delete Class {{deleteMClasses?.matiere}}?</p>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                        <button (click)="onDeleteMClasse(deleteMClasses?.idMClasse)" class="btn btn-danger" data-dismiss="modal">Yes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Notification for no Classe -->
+<div *ngIf="MClasses?.length == 0" class="col-lg-12 col-md-12 col-xl-12">
+    <div class="alert alert-info" role="alert">
+        <h4 class="alert-heading">NO Classes !</h4>
+        <p>No Classes were found.</p>
+    </div>
+</div>

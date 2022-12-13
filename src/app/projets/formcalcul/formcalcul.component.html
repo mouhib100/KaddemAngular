@@ -1,0 +1,40 @@
+<form  style=" width: auto ; margin-left: 100px;" [formGroup]="calculForm" >
+  <br>
+  <br>
+  <br>
+  <h1>Nombre de Projets Valides pendant une date</h1>
+    <br>
+
+    <div> 
+    <mat-form-field class="display-block" appearance="fill">
+      <mat-label>Date Debut Projet</mat-label>
+      <input formControlName="dateDebutPP" matInput [matDatepicker]="picker">
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+  
+    <br>
+    <br>
+    <br>
+
+    <mat-form-field class="display-block" appearance="fill" >
+      <mat-label>Date Fin Projet</mat-label>
+      <input formControlName="dateFinPP" matInput [matDatepicker]="pickerr">
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle  matIconSuffix [for]="pickerr"></mat-datepicker-toggle>
+      <mat-datepicker #pickerr></mat-datepicker>
+    </mat-form-field>
+  </div>
+    <br>
+
+    <button style="margin: right 8px;" mat-raised-button color="primary" (click)="calculnbrslct()" >Calculer</button>
+    
+    <br>
+    <br>
+    <h2 style="color:blue ; font-family: Arial, Helvetica, sans-serif">
+        {{ojoj}} {{nbrfin}}
+    </h2>
+    
+
+  </form>
